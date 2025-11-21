@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Pacifico&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Default Light Mode */
+  body {
+    @apply bg-white text-gray-900;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Dark Mode */
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  /* Gaming Mode - رنگ‌بندی خاص گیمینگ */
+  .gaming body {
+    @apply text-gray-100;
+    background: linear-gradient(135deg, #0a0a12 0%, #1b0f3d 50%, #2d1b69 100%);
+    background-attachment: fixed;
+  }
+
+  .gaming {
+    --primary-500: #a855f7;
+    --primary-600: #9333ea;
+    --primary-400: #c084fc;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-200 dark:bg-gray-800;
+  }
+
+  .gaming ::-webkit-scrollbar-track {
+    @apply bg-purple-900/30;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+  }
+
+  .gaming ::-webkit-scrollbar-thumb {
+    @apply bg-purple-500/70 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500 dark:bg-gray-500;
+  }
+
+  .gaming ::-webkit-scrollbar-thumb:hover {
+    @apply bg-purple-400;
+  }
+}
+
+/* Gaming Mode Special Effects */
+.gaming .bg-white {
+  background: rgba(27, 15, 61, 0.95) !important;
+}
+
+.gaming .dark\:bg-gray-800,
+.gaming .bg-gray-50 {
+  background: rgba(27, 15, 61, 0.9) !important;
+}
+
+.gaming .dark\:bg-gray-900 {
+  background: rgba(10, 10, 18, 0.95) !important;
+}
+
+/* Gaming Mode Borders */
+.gaming .border-gray-200,
+.gaming .dark\:border-gray-700 {
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Gaming Mode Text Colors */
+.gaming .text-gray-900,
+.gaming .dark\:text-white {
+  color: #ffffff !important;
+}
+
+.gaming .text-gray-600,
+.gaming .dark\:text-gray-400 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Animations */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(138, 43, 226, 0.8); }
+}
+
+.gaming .shadow-lg {
+  box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3) !important;
+}
+
+.gaming .shadow-xl {
+  box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4) !important;
+}
+
+.font-handwritten {
+  font-family: 'Pacifico', cursive;
+}
+
+/* Responsive Utilities */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .grid-cols-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
