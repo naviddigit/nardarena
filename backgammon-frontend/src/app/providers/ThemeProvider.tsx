@@ -33,16 +33,37 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Remove all theme classes
     root.classList.remove('dark', 'light', 'gaming');
     
-    // Add current theme class
+    // Theme CSS variables
     if (theme === 'dark') {
       root.classList.add('dark');
-      root.style.setProperty('--bg-color', '#0f0f12');
+      root.style.setProperty('--bg-primary', '#0f1117');
+      root.style.setProperty('--bg-secondary', '#1a1d29');
+      root.style.setProperty('--surface', '#1e2330');
+      root.style.setProperty('--surface-elevated', '#252b3d');
+      root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.08)');
+      root.style.setProperty('--text-primary', '#ffffff');
+      root.style.setProperty('--text-secondary', '#a1a1aa');
+      root.style.setProperty('--text-tertiary', '#71717a');
     } else if (theme === 'light') {
       root.classList.remove('dark');
-      root.style.setProperty('--bg-color', '#ffffff');
+      root.style.setProperty('--bg-primary', '#ffffff');
+      root.style.setProperty('--bg-secondary', '#f8f9fa');
+      root.style.setProperty('--surface', '#ffffff');
+      root.style.setProperty('--surface-elevated', '#f8f9fa');
+      root.style.setProperty('--border-color', '#e5e7eb');
+      root.style.setProperty('--text-primary', '#18181b');
+      root.style.setProperty('--text-secondary', '#52525b');
+      root.style.setProperty('--text-tertiary', '#a1a1aa');
     } else if (theme === 'gaming') {
       root.classList.add('dark', 'gaming');
-      root.style.setProperty('--bg-color', '#0a0a12');
+      root.style.setProperty('--bg-primary', '#0a0a12');
+      root.style.setProperty('--bg-secondary', '#1a0f2e');
+      root.style.setProperty('--surface', '#1e1338');
+      root.style.setProperty('--surface-elevated', '#2a1a4a');
+      root.style.setProperty('--border-color', 'rgba(168, 85, 247, 0.2)');
+      root.style.setProperty('--text-primary', '#ffffff');
+      root.style.setProperty('--text-secondary', '#c4b5fd');
+      root.style.setProperty('--text-tertiary', '#a78bfa');
     }
     
     // Save to localStorage

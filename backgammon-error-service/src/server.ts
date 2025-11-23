@@ -7,6 +7,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import errorRoutes from './routes/errors';
+import testRoutes from './routes/test';
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +39,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/errors', errorRoutes);
+app.use('/api/test', testRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -54,6 +56,8 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 app.listen(PORT, () => {
   console.log(`🚀 Error tracking service running on port ${PORT}`);
   console.log(`📱 WhatsApp notifications: ${process.env.ADMIN_WHATSAPP_NUMBER ? 'ENABLED' : 'DISABLED'}`);
+  console.log(`🤖 Telegram Bot: ${process.env.TELEGRAM_BOT_TOKEN ? 'CONFIGURED ✅' : 'NOT CONFIGURED ❌'}`);
+  console.log(`💬 Telegram Chat ID: ${process.env.TELEGRAM_CHAT_ID || 'NOT SET'}`);
   console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL}`);
 });
 

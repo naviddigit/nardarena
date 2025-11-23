@@ -16,17 +16,20 @@ export const ThemeToggle: React.FC = () => {
   ];
 
   return (
-    <div className="absolute top-4 left-4 flex gap-2 z-30">
+    <div className="inline-flex items-center gap-1.5 p-1 rounded-xl bg-gray-100 dark:bg-gray-800">
       {themes.map((t) => (
         <button
           key={t.id}
           onClick={() => setTheme(t.id)}
           title={t.label}
-          className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors text-lg ${
-            theme === t.id 
-              ? 'bg-purple-500 text-white shadow-lg' 
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
-          }`}
+          className={`
+            w-9 h-9 flex items-center justify-center rounded-lg
+            transition-all duration-200 text-lg
+            ${theme === t.id 
+              ? 'bg-purple-600 text-white shadow-sm' 
+              : 'text-gray-600 dark:text-gray-400 hover:text-purple-600 hover:bg-gray-200 dark:hover:bg-gray-700'
+            }
+          `}
         >
           {t.icon}
         </button>

@@ -14,6 +14,8 @@ interface DemoNavProps {
 }
 
 const demos = [
+  { id: 'api-test', name: 'API Testing', icon: '🧪' },
+  { id: 'test', name: 'Test Panel', icon: '🔬' },
   { id: 'button', name: 'Button', icon: '🔘' },
   { id: 'input', name: 'Input', icon: '📝' },
   { id: 'avatar', name: 'Avatar', icon: '👤' },

@@ -4,7 +4,7 @@
  */
 
 import express, { Request, Response } from 'express';
-import { sendWhatsAppAlert } from '../services/whatsapp';
+import { sendTelegramAlert } from '../services/telegram';
 import { logError, getErrorStats } from '../services/logger';
 import { rateLimiter } from '../utils/rateLimiter';
 import { authenticateRequest } from '../utils/auth';
@@ -30,9 +30,9 @@ router.post('/report', rateLimiter, authenticateRequest, async (req: Request, re
     // Log error to backend storage
     const errorId = logError(errorData);
     
-    // Send WhatsApp alert for critical errors
-    if (shouldSendWhatsAppAlert(errorData)) {
-      await sendWhatsAppAlert({
+    // Send Telegram alert for critical errors
+    if (shouldSendTelegramAlert(errorData)) {
+      await sendTelegramAlert({
         ...errorData,
         id: errorId
       });
@@ -66,9 +66,9 @@ router.get('/stats', authenticateRequest, async (req: Request, res: Response) =>
 });
 
 /**
- * Determine if WhatsApp alert should be sent
+ * Determine if Telegram alert should be sent
  */
-function shouldSendWhatsAppAlert(errorData: any): boolean {
+function shouldSendTelegramAlert(errorData: any): boolean {
   // Always send for critical errors
   if (errorData.level === 'error') return true;
   

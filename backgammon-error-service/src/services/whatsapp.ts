@@ -5,10 +5,10 @@
 
 import twilio from 'twilio';
 
-const client = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// Initialize Twilio client only if credentials are provided
+const client = (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN)
+  ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+  : null;
 
 interface ErrorData {
   id?: string;
@@ -31,8 +31,8 @@ const recentMessages = new Map<string, number>();
 export async function sendWhatsAppAlert(errorData: ErrorData): Promise<boolean> {
   try {
     // Check if Twilio is configured
-    if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
-      console.warn('Twilio not configured. Skipping WhatsApp alert.');
+    if (!client || !process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
+      console.warn('⚠️ Twilio not configured. Skipping WhatsApp alert.');
       return false;
     }
 
@@ -160,4 +160,30 @@ export async function sendTestMessage(): Promise<boolean> {
     timestamp: new Date().toISOString(),
     url: 'https://test.com',
   });
+}
+
+/**
+ * Send custom WhatsApp message
+ */
+export async function sendWhatsAppMessage(message: string): Promise<boolean> {
+  try {
+    // Check if Twilio is configured
+    if (!client || !process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
+      console.warn('⚠️ Twilio not configured. WhatsApp message not sent.');
+      console.log('📝 Message that would be sent:', message);
+      return false;
+    }
+
+    await client.messages.create({
+      from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
+      to: `whatsapp:${process.env.ADMIN_WHATSAPP_NUMBER}`,
+      body: message
+    });
+    
+    console.log('✅ WhatsApp message sent successfully');
+    return true;
+  } catch (error: any) {
+    console.error('❌ Failed to send WhatsApp message:', error.message);
+    return false;
+  }
 }

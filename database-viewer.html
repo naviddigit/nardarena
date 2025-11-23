@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Database Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .info-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #6b7280;
+        }
+        .value {
+            font-family: 'Courier New', monospace;
+            color: #1f2937;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background: #f9fafb;
+            font-weight: bold;
+            color: #374151;
+        }
+        tr:hover {
+            background: #f9fafb;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ PostgreSQL Database Viewer</h1>
+            <p>Nard Arena - User Management</p>
+        </div>
+        
+        <div class="content">
+            <div class="info-box">
+                <h3>📊 اطلاعات اتصال</h3>
+                <div class="info-item">
+                    <span class="label">Database:</span>
+                    <span class="value">nardarena</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Host:</span>
+                    <span class="value">localhost:5432</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">User:</span>
+                    <span class="value">postgres</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn btn-primary" onclick="loadUsers()">🔄 بارگذاری کاربران</button>
+                <button class="btn btn-success" onclick="activateAdmin()">✅ فعال کردن Admin</button>
+                <button class="btn btn-danger" onclick="deleteTestUsers()">🗑️ حذف کاربران تست</button>
+            </div>
+
+            <div id="results">
+                <div class="loading">
+                    👆 روی دکمه "بارگذاری کاربران" کلیک کنید
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3002';
+
+        async function loadUsers() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="loading">⏳ در حال بارگذاری...</div>';
+
+            try {
+                // Call backend API to get users
+                const response = await fetch(`${API_URL}/api/admin/users`, {
+                    headers: {
+                        'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('لطفاً Backend را راه‌اندازی کنید');
+                }
+
+                const data = await response.json();
+                displayUsers(data.users);
+            } catch (error) {
+                results.innerHTML = `
+                    <div class="info-box" style="border: 2px solid #ef4444;">
+                        <h3 style="color: #ef4444;">❌ خطا در اتصال</h3>
+                        <p>Backend در دسترس نیست. لطفاً Backend را راه‌اندازی کنید:</p>
+                        <pre style="margin-top: 10px; background: #f3f4f6; padding: 10px; border-radius: 5px;">
+cd backgammon-auth-backend
+npm run dev</pre>
+                        <p style="margin-top: 10px;">یا از PowerShell استفاده کنید:</p>
+                        <button class="btn btn-primary" onclick="loadFromScript()">📊 نمایش از اسکریپت</button>
+                    </div>
+                `;
+            }
+        }
+
+        function displayUsers(users) {
+            const results = document.getElementById('results');
+            
+            if (!users || users.length === 0) {
+                results.innerHTML = '<div class="loading">هیچ کاربری یافت نشد</div>';
+                return;
+            }
+
+            let html = '<table><thead><tr>';
+            html += '<th>ID</th><th>Email</th><th>Username</th><th>Role</th><th>Status</th><th>Verified</th>';
+            html += '</tr></thead><tbody>';
+
+            users.forEach(user => {
+                html += '<tr>';
+                html += `<td>${user.id}</td>`;
+                html += `<td>${user.email}</td>`;
+                html += `<td>${user.username}</td>`;
+                html += `<td><strong>${user.role}</strong></td>`;
+                html += `<td><span class="status ${user.isActive ? 'active' : 'inactive'}">${user.isActive ? 'فعال' : 'غیرفعال'}</span></td>`;
+                html += `<td>${user.isEmailVerified ? '✅' : '❌'}</td>`;
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            results.innerHTML = html;
+        }
+
+        async function activateAdmin() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<div class="loading">⏳ در حال فعال‌سازی Admin...</div>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/admin/activate-admin`, {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    results.innerHTML = `
+                        <div class="info-box" style="border: 2px solid #10b981;">
+                            <h3 style="color: #10b981;">✅ Admin فعال شد!</h3>
+                            <p>حالا می‌توانید با اطلاعات زیر وارد شوید:</p>
+                            <div class="info-item"><span class="label">Email:</span><span class="value">admin@nardarena.com</span></div>
+                            <div class="info-item"><span class="label">Password:</span><span class="value">admin123</span></div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('خطا در فعال‌سازی');
+                }
+            } catch (error) {
+                alert('لطفاً از PowerShell یا Terminal استفاده کنید:\n\ncd backgammon-auth-backend\nnode scripts/activate-admin.js');
+            }
+        }
+
+        function deleteTestUsers() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید کاربران تست را حذف کنید؟')) {
+                alert('این قابلیت به زودی اضافه می‌شود');
+            }
+        }
+
+        function loadFromScript() {
+            alert('لطفاً از PowerShell استفاده کنید:\n\ncd backgammon-auth-backend\nnode scripts/view-users.js');
+        }
+    </script>
+</body>
+</html>

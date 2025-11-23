@@ -89,23 +89,28 @@ export const CARD_HEADER_SIZES: Record<CardSize, string> = {
 };
 
 /**
- * Card Variant Configuration
- * پیکربندی حالت‌ها
+ * Card Variant Configuration - Login page style
+ * استایل یکپارچه مثل صفحه Login
  */
 export const CARD_VARIANTS = {
   elevated: `
-    bg-white dark:bg-gray-800
-    shadow-lg hover:shadow-xl
-    transition-shadow duration-300
+    backdrop-blur-2xl
+    border shadow-lg
+    bg-white/10 dark:bg-white/5
+    border-gray-300/30 dark:border-white/10
+    transition-all duration-200
   `,
   outlined: `
-    bg-white dark:bg-gray-800
-    border-2 border-gray-200 dark:border-gray-700
-    hover:border-gray-300 dark:hover:border-gray-600
-    transition-colors duration-300
+    backdrop-blur-2xl
+    border shadow-lg
+    bg-white/10 dark:bg-white/5
+    border-gray-300/30 dark:border-white/10
+    transition-all duration-200
   `,
   filled: `
-    bg-gray-100 dark:bg-gray-900
-    border border-gray-200 dark:border-gray-800
+    backdrop-blur-2xl
+    border shadow-lg
+    bg-white/10 dark:bg-white/5
+    border-gray-300/30 dark:border-white/10
   `,
 };

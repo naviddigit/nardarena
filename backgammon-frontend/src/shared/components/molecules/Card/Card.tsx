@@ -67,7 +67,7 @@ export const Card = ({
           ${variantClasses}
           ${sizeClasses}
           ${widthClasses}
-          rounded-xl
+          rounded-3xl
           flex items-center justify-center
           min-h-[200px]
           ${className}
@@ -89,7 +89,7 @@ export const Card = ({
         ${clickableClasses}
         ${hoverableClasses}
         ${widthClasses}
-        rounded-xl
+        rounded-3xl
         overflow-hidden
         ${className}
       `}
@@ -111,13 +111,13 @@ export const Card = ({
           <div className={`${headerSizeClasses} font-bold text-gray-900 dark:text-white`}>
             {header}
           </div>
-          <div className="mt-2 border-b border-gray-200 dark:border-gray-700" />
+          <div className="mt-2 border-b border-gray-300/30 dark:border-white/10" />
         </div>
       )}
 
       {/* Body - بدنه */}
       <div className={`${sizeClasses} ${header ? 'pt-4' : ''} ${footer ? 'pb-4' : ''}`}>
-        <div className="text-gray-700 dark:text-gray-300">
+        <div className="text-gray-900 dark:text-white">
           {children}
         </div>
       </div>
@@ -125,7 +125,7 @@ export const Card = ({
       {/* Footer - فوتر */}
       {footer && (
         <>
-          <div className="border-t border-gray-200 dark:border-gray-700" />
+          <div className="border-t border-gray-300/30 dark:border-white/10" />
           <div className={`${sizeClasses} pt-0`}>
             {footer}
           </div>

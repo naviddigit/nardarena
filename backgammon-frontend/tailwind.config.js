@@ -8,33 +8,45 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Custom colors for themes
-        dark: {
-          bg: '#0f0f12',
-          surface: '#1a1a1f',
-          border: 'rgba(255, 255, 255, 0.1)',
-        },
-        light: {
-          bg: '#ffffff',
-          surface: '#f5f5f5',
-          border: '#e5e5e5',
-        },
-        gaming: {
-          bg: '#0a0a12',
-          surface: '#1b0f3d',
-          border: 'rgba(168, 85, 247, 0.3)',
-        },
+        // Theme backgrounds - Modular approach
+        'bg-primary': 'var(--bg-primary)',
+        'bg-secondary': 'var(--bg-secondary)',
+        'surface': 'var(--surface)',
+        'surface-elevated': 'var(--surface-elevated)',
+        'border-color': 'var(--border-color)',
+        
+        // Text colors
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'text-tertiary': 'var(--text-tertiary)',
+        
+        // Brand colors - consistent across themes
         primary: {
           50: '#faf5ff',
           100: '#f3e8ff',
           200: '#e9d5ff',
           300: '#d8b4fe',
           400: '#c084fc',
-          500: '#a855f7', // Main purple
+          500: '#a855f7',
           600: '#9333ea',
           700: '#7e22ce',
           800: '#6b21a8',
           900: '#581c87',
+        },
+        success: {
+          50: '#f0fdf4',
+          500: '#22c55e',
+          600: '#16a34a',
+        },
+        danger: {
+          50: '#fef2f2',
+          500: '#ef4444',
+          600: '#dc2626',
+        },
+        warning: {
+          50: '#fffbeb',
+          500: '#f59e0b',
+          600: '#d97706',
         },
       },
       fontFamily: {
