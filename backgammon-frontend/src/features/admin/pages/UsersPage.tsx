@@ -4,11 +4,13 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AdminLayout } from '../components/AdminLayout';
 import { Card } from '@shared/components/molecules/Card';
 import { Button } from '@shared/components/atoms/Button';
 import { TextInput } from '@shared/components/atoms/Input';
 import { Badge } from '@shared/components/atoms/Badge';
+import { snackbar } from '@/app/providers';
 import { UserEditModal } from '../components/UserEditModal';
 import { AddUserModal } from '../components/AddUserModal';
 import type { CreateUserDto, User as ApiUser } from '../../../shared/types';
@@ -22,6 +24,7 @@ interface User extends Omit<ApiUser, 'id'> {
 }
 
 export const UsersPage = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'suspended' | 'banned'>('all');
@@ -97,22 +100,20 @@ export const UsersPage = () => {
   };
 
   // Handle save user
-  const handleSaveUser = async (updatedUser: User) => {
+  const handleSaveUser = async (updatedUser: ApiUser) => {
     try {
-      await userService.updateUser(updatedUser.id, {
+      const result = await userService.updateUser(updatedUser.id, {
         email: updatedUser.email,
         username: updatedUser.username,
         role: updatedUser.role,
         status: updatedUser.status,
-        balance: updatedUser.balance,
       });
       
-      setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u));
+      setUsers(users.map(u => u.id === result.id ? result : u));
       setEditingUser(null);
-      // TODO: Show success toast
-    } catch (err) {
-      console.error('Error updating user:', err);
-      // TODO: Show error toast
+      snackbar.success('User updated successfully');
+    } catch (err: any) {
+      snackbar.error(err?.response?.data?.error || 'Failed to update user');
     }
   };
 
@@ -122,10 +123,11 @@ export const UsersPage = () => {
       try {
         await userService.deleteUser(userId);
         setUsers(users.filter(u => u.id !== userId));
-        // TODO: Show success toast
-      } catch (err) {
+        snackbar.success('User deleted successfully!');
+      } catch (err: any) {
         console.error('Error deleting user:', err);
-        // TODO: Show error toast
+        const errorMsg = err?.response?.data?.error || 'Failed to delete user';
+        snackbar.error(errorMsg);
       }
     }
   };
@@ -142,11 +144,13 @@ export const UsersPage = () => {
         registeredAt: newUser.createdAt,
       } as User]);
       
-      // TODO: Show success toast
-    } catch (err) {
+      setIsAddingUser(false);
+      snackbar.success('User created successfully!');
+    } catch (err: any) {
       console.error('Error creating user:', err);
-      // TODO: Show error toast
-      throw err; // Re-throw to let modal handle it
+      const errorMsg = err?.response?.data?.error || 'Failed to create user';
+      snackbar.error(errorMsg);
+      // Don't throw - just show error snackbar
     }
   };
 
@@ -179,8 +183,12 @@ export const UsersPage = () => {
               Total {filteredUsers.length} users found
             </p>
           </div>
-          <Button variant="gradient" size="md" onClick={() => setIsAddingUser(true)}>
-            + Add New User
+          <Button 
+            variant="gradient" 
+            size="md" 
+            onClick={() => navigate('/admin/users/create')}
+          >
+            + New User
           </Button>
         </div>
 

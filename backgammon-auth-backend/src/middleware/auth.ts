@@ -22,7 +22,6 @@ export const authenticate = (
   next: NextFunction
 ): void => {
   try {
-    // گرفتن token از header
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -34,11 +33,7 @@ export const authenticate = (
     }
 
     const token = authHeader.split(' ')[1];
-
-    // تایید token
     const decoded = verifyAccessToken(token);
-
-    // اضافه کردن user info به request
     req.user = decoded;
 
     next();

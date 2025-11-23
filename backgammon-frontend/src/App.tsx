@@ -5,6 +5,8 @@ import ProfileSetupPage from '@features/auth/pages/ProfileSetupPage';
 import AdminPanel from '@features/admin/pages/AdminPanel';
 import DashboardPage from '@features/admin/pages/DashboardPage';
 import UsersPage from '@features/admin/pages/UsersPage';
+import { UserCreatePage } from '@features/admin/pages/UserCreatePage';
+import LoginSecurityTest from '@features/demo/pages/LoginSecurityTest';
 import { 
   TransactionsPage, 
   WithdrawalsPage, 
@@ -26,6 +28,7 @@ function App() {
       {/* Public pages */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/test/login-security" element={<LoginSecurityTest />} />
       
       {/* Profile Setup - بعد از Register */}
       <Route
@@ -59,6 +62,14 @@ function App() {
         element={
           <ProtectedRoute requireAdmin>
             <UsersPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/users/create"
+        element={
+          <ProtectedRoute requireAdmin>
+            <UserCreatePage />
           </ProtectedRoute>
         }
       />

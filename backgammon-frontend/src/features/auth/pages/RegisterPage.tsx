@@ -14,13 +14,13 @@ import {
 } from '@shared/components/atoms/Icon';
 import { useTheme } from '@/app/providers';
 import { useAuth } from '../hooks/useAuth';
-import { Toast } from '../../../shared/components/molecules/Toast';
+import { snackbar } from '@/app/providers';
 
 const AuthBackground: React.FC = () => {
   return (
-    <div className="absolute inset-0 -z-20 flex flex-wrap items-center justify-center gap-8 opacity-30">
+    <div className="absolute mb-12 pb-12 inset-0 -z-20 flex  items-end justify-center gap-8 opacity-30">
       {[...Array(6)].map((_, i) => (
-        <svg key={i} width="80" height="80" viewBox="0 0 100 100" className="animate-spin-slow">
+        <svg key={i} width="60" height="60" viewBox="0 0 100 100" className="animate-spin-slow">
           <rect x="5" y="5" width="90" height="90" rx="15" ry="15" fill="none" stroke="url(#diceGlow)" strokeWidth="6" />
           <circle cx="50" cy="50" r="8" fill="url(#diceGlow)" />
           <circle cx="30" cy="30" r="6" fill="url(#diceGlow)" />
@@ -49,9 +49,6 @@ function RegisterPage() {
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -106,18 +103,14 @@ function RegisterPage() {
         email: formData.email,
         password: formData.password,
       });
-      setToastType('success');
-      setToastMessage('Registration successful! Welcome to Nard Arena 🎉');
-      setShowToast(true);
+      snackbar.success('Registration successful! Welcome to Nard Arena 🎉');
       
       // Redirect to profile setup
       setTimeout(() => {
         navigate('/profile-setup');
       }, 1500);
     } catch (error: any) {
-      setToastType('error');
-      setToastMessage(error.message || 'Registration failed. Please try again.');
-      setShowToast(true);
+      snackbar.error(error.message || 'Registration failed. Please try again.');
     }
   };
 
@@ -215,14 +208,6 @@ function RegisterPage() {
         </form>
         </div>
       </PageTransition>
-
-      {showToast && (
-        <Toast
-          message={toastMessage}
-          type={toastType}
-          onClose={() => setShowToast(false)}
-        />
-      )}
 
       <style>{`
         @keyframes spin-slow {

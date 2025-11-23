@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { authenticate, authorizeAdmin } from '../middleware/auth';
 import { getUsersService, getUserByIdService, updateUserService, deleteUserService } from '../services/userService';
+import { asyncHandler } from '../middleware/errorLogger';
 
 const router = express.Router();
 
@@ -70,25 +71,18 @@ router.get('/:id', authenticate, authorizeAdmin, async (req: Request, res: Respo
  * PUT /api/users/:id
  * ویرایش کاربر (فقط Admin)
  */
-router.put('/:id', authenticate, authorizeAdmin, async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const updates = req.body;
+router.put('/:id', authenticate, authorizeAdmin, asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const updates = req.body;
 
-    const user = await updateUserService(id, updates);
+  const user = await updateUserService(id, updates);
 
-    res.status(200).json({
-      success: true,
-      message: 'User updated successfully',
-      data: { user },
-    });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    });
-  }
-});
+  res.status(200).json({
+    success: true,
+    message: 'User updated successfully',
+    data: { user },
+  });
+}));
 
 /**
  * DELETE /api/users/:id

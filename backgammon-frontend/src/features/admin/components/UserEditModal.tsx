@@ -1,99 +1,86 @@
 /**
  * User Edit Modal
- * مودال ویرایش کاربر
+ * مودال ویرایش کاربر - استفاده از UserForm مشترک
  */
 
 import { useState } from 'react';
-import { Button } from '@shared/components/atoms/Button';
-import { TextInput } from '@shared/components/atoms/Input';
-
-interface User {
-  id: number;
-  email: string;
-  username: string;
-  role: 'admin' | 'player';
-  status: 'active' | 'suspended' | 'banned';
-  balance: number;
-}
+import { FiX } from 'react-icons/fi';
+import { UserForm } from '@shared/components/forms/UserForm';
+import type { User as ApiUser } from '@shared/types';
 
 interface UserEditModalProps {
-  user: User;
+  user: ApiUser;
   onClose: () => void;
-  onSave: (user: User) => void;
+  onSave: (user: ApiUser) => Promise<void>;
 }
 
 export const UserEditModal = ({ user, onClose, onSave }: UserEditModalProps) => {
-  const [formData, setFormData] = useState(user);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSave(formData);
+  const handleSubmit = async (formData: any) => {
+    setIsSubmitting(true);
+    
+    try {
+      const updatedUser: ApiUser = {
+        ...user,
+        email: formData.email,
+        username: formData.username,
+        role: formData.role,
+        status: formData.status,
+      };
+
+      await onSave(updatedUser);
+      onClose();
+    } catch (error) {
+      // Error handled by parent component
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Edit User</h2>
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <TextInput
-              label="Username"
-              value={formData.username}
-              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-            />
-            
-            <TextInput
-              label="Email"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            />
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={!isSubmitting ? onClose : undefined}
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Role</label>
-              <select
-                value={formData.role}
-                onChange={(e) => setFormData({ ...formData, role: e.target.value as 'admin' | 'player' })}
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-              >
-                <option value="player">Player</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
+      {/* Modal */}
+      <div className="relative w-full max-w-5xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="sticky top-0 z-10 px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-white dark:bg-gray-800">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Edit user
+          </h2>
+          <button
+            onClick={onClose}
+            disabled={isSubmitting}
+            className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <FiX className="text-xl text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Status</label>
-              <select
-                value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value as User['status'] })}
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-              >
-                <option value="active">Active</option>
-                <option value="suspended">Suspended</option>
-                <option value="banned">Banned</option>
-              </select>
-            </div>
-          </div>
-
-          <TextInput
-            label="Balance"
-            type="number"
-            value={formData.balance}
-            onChange={(e) => setFormData({ ...formData, balance: Number(e.target.value) })}
+        {/* Form Content */}
+        <div className="p-6">
+          <UserForm
+            initialData={{
+              email: user.email,
+              username: user.username,
+              role: user.role,
+              status: user.status,
+              balance: user.balance,
+              emailVerified: true, // TODO: Get from user if field exists
+            }}
+            currentAvatarUrl={user.avatar}
+            onSubmit={handleSubmit}
+            onCancel={onClose}
+            isSubmitting={isSubmitting}
+            showPasswordFields={false}
+            submitButtonText="Save changes"
           />
-
-          <div className="flex gap-3 justify-end pt-4">
-            <Button variant="outline" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button variant="gradient" type="submit">
-              Save Changes
-            </Button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );

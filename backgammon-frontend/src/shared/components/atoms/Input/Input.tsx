@@ -73,8 +73,8 @@ export const Input: React.FC<InputProps> = ({
           disabled={disabled}
           className={`
             w-full h-12 px-4 rounded-xl
-            bg-surface border border-border-color
-            text-text-primary placeholder:text-text-tertiary
+            bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600
+            text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500
             transition-all duration-200 outline-none
             hover:border-purple-500/50
             focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20

@@ -1,20 +1,13 @@
+/**
+ * Button Demo Page
+ * صفحه دمو کامپوننت Button
+ */
+
 import { useState } from 'react';
 import { Button } from '@shared/components/atoms/Button';
 import { EmailIcon, GoogleIcon } from '@shared/components/atoms/Icon';
-import { ThemeToggle } from '@shared/components/organisms/ThemeToggle';
 
-/**
- * Button Demo Page
- * 
- * این صفحه تمام حالت‌های Button را نمایش می‌دهد:
- * - تمام variant ها
- * - تمام size ها
- * - با آیکون
- * - Loading state
- * - Disabled state
- * - Full width
- */
-export default function ButtonDemo() {
+const ButtonDemo = () => {
   const [loading, setLoading] = useState(false);
 
   const handleLoadingClick = () => {
@@ -23,134 +16,121 @@ export default function ButtonDemo() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg p-8 transition-colors relative">
-      <ThemeToggle />
-      <div className="max-w-5xl mx-auto space-y-12">
-        
-        {/* Header */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Button Component Demo
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            All possible Button states following SOLID principles
-          </p>
+    <div className="space-y-8 p-8 bg-white dark:bg-gray-900 rounded-2xl">
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Button Component</h2>
+        <p className="text-gray-600 dark:text-gray-400">
+          Reusable button component with different variants, sizes, and states
+        </p>
+      </div>
+
+      {/* Variants */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Variants</h3>
+        <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <Button variant="primary">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="gradient">Gradient</Button>
         </div>
+      </div>
 
-        {/* Variants */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Variants
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-            <Button variant="gradient">Gradient</Button>
-          </div>
-        </section>
+      {/* Sizes */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Sizes</h3>
+        <div className="flex flex-wrap gap-4 items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <Button size="sm">Small</Button>
+          <Button size="md">Medium (Default)</Button>
+          <Button size="lg">Large</Button>
+        </div>
+      </div>
 
-        {/* Sizes */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Sizes
-          </h2>
-          <div className="flex flex-wrap gap-4 items-center">
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-          </div>
-        </section>
+      {/* With Icons */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">With Icons</h3>
+        <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <Button leftIcon={<EmailIcon />}>
+            Email
+          </Button>
+          <Button rightIcon={<span>→</span>} variant="outline">
+            Next
+          </Button>
+          <Button 
+            leftIcon={<GoogleIcon />}
+            variant="secondary"
+          >
+            Sign in with Google
+          </Button>
+          <Button 
+            leftIcon={<span>🎮</span>} 
+            rightIcon={<span>▶</span>}
+            variant="gradient"
+            size="lg"
+          >
+            Start Game
+          </Button>
+        </div>
+      </div>
 
-        {/* With Icons */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            With Icons
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <Button leftIcon={<EmailIcon />}>
-              Email
-            </Button>
-            <Button rightIcon={<span>→</span>} variant="outline">
-              Next
-            </Button>
-            <Button 
-              leftIcon={<GoogleIcon />}
-              variant="secondary"
-            >
-              Sign in with Google
-            </Button>
-            <Button 
-              leftIcon={<span>🎮</span>} 
-              rightIcon={<span>▶</span>}
-              variant="gradient"
-              size="lg"
-            >
-              Start Game
-            </Button>
-          </div>
-        </section>
+      {/* Loading State */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Loading State</h3>
+        <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <Button isLoading>Loading</Button>
+          <Button variant="gradient" isLoading>
+            Processing
+          </Button>
+          <Button 
+            isLoading={loading} 
+            onClick={handleLoadingClick}
+            variant="outline"
+          >
+            {loading ? 'Loading...' : 'Click Me (2s)'}
+          </Button>
+        </div>
+        <p className="text-sm text-gray-500 dark:text-gray-400 px-6">
+          💡 Click the last button - it will show loading for 2 seconds
+        </p>
+      </div>
 
-        {/* Loading State */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Loading State
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <Button isLoading>Loading</Button>
-            <Button variant="gradient" isLoading>
-              Processing
-            </Button>
-            <Button 
-              isLoading={loading} 
-              onClick={handleLoadingClick}
-              variant="outline"
-            >
-              {loading ? 'Loading...' : 'Click Me'}
-            </Button>
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-            💡 Click the last button - it will show loading for 2 seconds
-          </p>
-        </section>
+      {/* Disabled State */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Disabled State</h3>
+        <div className="flex flex-wrap gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <Button disabled>Disabled Primary</Button>
+          <Button disabled variant="gradient">
+            Disabled Gradient
+          </Button>
+          <Button disabled variant="outline" leftIcon={<EmailIcon />}>
+            Disabled with Icon
+          </Button>
+          <Button disabled variant="secondary">
+            Disabled Secondary
+          </Button>
+        </div>
+      </div>
 
-        {/* Disabled State */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Disabled State
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <Button disabled>Disabled</Button>
-            <Button disabled variant="gradient">
-              Disabled Gradient
-            </Button>
-            <Button disabled variant="outline" leftIcon={<EmailIcon />}>
-              Disabled with Icon
-            </Button>
-          </div>
-        </section>
+      {/* Full Width */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Full Width</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <Button fullWidth variant="primary">
+            Full Width Primary
+          </Button>
+          <Button fullWidth variant="gradient" size="lg">
+            Full Width Gradient Large
+          </Button>
+          <Button fullWidth variant="outline">
+            Full Width Outline
+          </Button>
+        </div>
+      </div>
 
-        {/* Full Width */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Full Width
-          </h2>
-          <div className="space-y-4">
-            <Button fullWidth variant="primary">
-              Full Width Primary
-            </Button>
-            <Button fullWidth variant="gradient" size="lg">
-              Full Width Gradient Large
-            </Button>
-          </div>
-        </section>
-
-        {/* Combinations */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Combinations
-          </h2>
+      {/* Combinations */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Combinations</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Button variant="primary" size="sm" leftIcon={<span>💰</span>}>
               Deposit
@@ -161,8 +141,8 @@ export default function ButtonDemo() {
             <Button variant="gradient" size="lg" rightIcon={<span>→</span>}>
               Continue
             </Button>
-            <Button variant="outline" fullWidth>
-              View Details
+            <Button variant="outline" leftIcon={<EmailIcon />}>
+              Email Support
             </Button>
             <Button variant="ghost" size="sm">
               Learn More
@@ -171,37 +151,121 @@ export default function ButtonDemo() {
               Join Tournament
             </Button>
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Real World Examples */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Real World Examples
-          </h2>
-          
-          {/* Login Form Example */}
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Login Form Example
-            </h3>
+      {/* Usage Example */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Usage Example</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <h4 className="text-lg font-medium text-gray-900 dark:text-white text-center mb-4">
+            Login Form Buttons
+          </h4>
+          <div className="max-w-md mx-auto space-y-3">
             <Button variant="gradient" fullWidth size="lg">
               Login
             </Button>
             <Button variant="secondary" fullWidth leftIcon={<GoogleIcon />}>
               Sign in with Google
             </Button>
-            <div className="flex gap-4">
-              <Button variant="ghost" fullWidth>
+            <div className="flex gap-3">
+              <Button variant="ghost" fullWidth size="sm">
                 Forgot Password?
               </Button>
-              <Button variant="outline" fullWidth>
+              <Button variant="outline" fullWidth size="sm">
                 Register
               </Button>
             </div>
           </div>
-        </section>
+        </div>
+      </div>
 
+      {/* Code Example */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Code Example</h3>
+        <pre className="p-4 bg-gray-900 text-green-400 rounded-xl overflow-x-auto text-sm">
+{`import { Button } from '@shared/components/atoms/Button';
+
+<Button 
+  variant="gradient"
+  size="lg"
+  leftIcon={<Icon />}
+  isLoading={loading}
+  onClick={handleClick}
+>
+  Click Me
+</Button>`}
+        </pre>
+      </div>
+
+      {/* Props Documentation */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Props</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-100 dark:bg-gray-800">
+              <tr>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Prop</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Type</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Default</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">variant</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">'primary' | 'secondary' | 'outline' | 'ghost' | 'gradient'</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">'primary'</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Button style variant</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">size</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">'sm' | 'md' | 'lg'</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">'md'</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Button size</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">leftIcon</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">ReactNode</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Icon on the left side</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">rightIcon</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">ReactNode</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Icon on the right side</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">isLoading</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">boolean</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">false</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Show loading spinner</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">disabled</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">boolean</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">false</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Disable the button</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">fullWidth</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">boolean</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">false</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Take full width of container</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">onClick</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">() =&gt; void</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Click handler</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ButtonDemo;

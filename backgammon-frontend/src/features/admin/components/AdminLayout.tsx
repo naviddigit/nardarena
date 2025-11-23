@@ -7,11 +7,27 @@ import { ReactNode, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@features/auth/hooks/useAuth';
 import { ThemeToggle } from '@shared/components/organisms/ThemeToggle';
+import type { ReactNode as ReactNodeType } from 'react';
+import { 
+  FiGrid, 
+  FiUsers, 
+  FiCreditCard, 
+  FiDollarSign, 
+  FiActivity, 
+  FiPackage, 
+  FiSettings,
+  FiMenu,
+  FiX,
+  FiHome,
+  FiLogOut,
+  FiChevronRight,
+  FiChevronLeft
+} from 'react-icons/fi';
 
 interface MenuItem {
   id: string;
   label: string;
-  icon: string;
+  icon: ReactNodeType;
   path: string;
   badge?: string | number;
 }
@@ -20,46 +36,46 @@ const menuItems: MenuItem[] = [
   {
     id: 'dashboard',
     label: 'Dashboard',
-    icon: '📊',
+    icon: <FiGrid size={20} />,
     path: '/admin/dashboard',
   },
   {
     id: 'users',
     label: 'Users',
-    icon: '👥',
+    icon: <FiUsers size={20} />,
     path: '/admin/users',
     badge: '150',
   },
   {
     id: 'transactions',
     label: 'Transactions',
-    icon: '💰',
+    icon: <FiCreditCard size={20} />,
     path: '/admin/transactions',
   },
   {
     id: 'withdrawals',
     label: 'Withdrawals',
-    icon: '💸',
+    icon: <FiDollarSign size={20} />,
     path: '/admin/withdrawals',
     badge: '5',
   },
   {
     id: 'games',
     label: 'Online Games',
-    icon: '🎮',
+    icon: <FiActivity size={20} />,
     path: '/admin/games',
     badge: '12',
   },
   {
     id: 'components',
     label: 'Components & Tests',
-    icon: '🧪',
+    icon: <FiPackage size={20} />,
     path: '/admin/old',
   },
   {
     id: 'settings',
     label: 'Settings',
-    icon: '⚙️',
+    icon: <FiSettings size={20} />,
     path: '/admin/settings',
   },
 ];
@@ -83,30 +99,103 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Top Navbar */}
-      <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 fixed w-full z-30 top-0">
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            {/* Left: Menu toggle + Title */}
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Toggle sidebar"
-              >
-                <span className="text-2xl text-gray-900 dark:text-white">{isSidebarOpen ? '✕' : '☰'}</span>
-              </button>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Admin Panel</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">NardAria v3</p>
+      {/* Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 z-30 flex flex-col ${
+          isSidebarOpen ? 'w-64' : 'w-20'
+        }`}
+      >
+        {/* Logo Section */}
+        <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-700">
+          {isSidebarOpen && (
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">N</span>
               </div>
+              <span className="font-bold text-gray-900 dark:text-white">NardAria</span>
+            </div>
+          )}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Toggle sidebar"
+          >
+            {isSidebarOpen ? (
+              <FiChevronLeft size={20} className="text-gray-600 dark:text-gray-400" />
+            ) : (
+              <FiChevronRight size={20} className="text-gray-600 dark:text-gray-400" />
+            )}
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-4 px-3">
+          <div className="space-y-1">
+            {menuItems.map((item) => (
+              <Link
+                key={item.id}
+                to={item.path}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group relative ${
+                  isActive(item.path)
+                    ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                }`}
+                title={!isSidebarOpen ? item.label : undefined}
+              >
+                <span className="flex-shrink-0">{item.icon}</span>
+                {isSidebarOpen && (
+                  <>
+                    <span className="font-medium text-sm flex-1">{item.label}</span>
+                    {item.badge && (
+                      <span className="px-2 py-0.5 text-xs font-semibold bg-red-500 text-white rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                  </>
+                )}
+                {!isSidebarOpen && item.badge && (
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                )}
+              </Link>
+            ))}
+          </div>
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
+          {/* Theme Toggle */}
+          <div className={`flex ${isSidebarOpen ? 'justify-center' : 'justify-center'}`}>
+            <ThemeToggle />
+          </div>
+          
+          {isSidebarOpen && (
+            <div className="text-center">
+              <p className="text-xs text-gray-500 dark:text-gray-400">Version 3.0.0</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">© 2025 NardAria</p>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* Top Navbar */}
+      <nav 
+        className={`bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 fixed top-0 right-0 z-20 transition-all duration-300 ${
+          isSidebarOpen ? 'left-64' : 'left-20'
+        }`}
+      >
+        <div className="px-6 py-3">
+          <div className="flex items-center justify-between">
+            {/* Left: Title */}
+            <div>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Admin Panel</h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Management Dashboard</p>
             </div>
 
             {/* Right: User menu */}
             <div className="flex items-center gap-4">
-              <div className="text-right">
+              <div className="text-right hidden sm:block">
                 <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.email || 'Admin'}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.role || 'admin'}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">{user?.role || 'admin'}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Link
@@ -114,13 +203,14 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   title="Player Dashboard"
                 >
-                  <span className="text-xl">🏠</span>
+                  <FiHome size={20} className="text-gray-600 dark:text-gray-400" />
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm font-medium"
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm font-medium flex items-center gap-2"
                 >
-                  Logout
+                  <FiLogOut size={18} />
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
               </div>
             </div>
@@ -128,65 +218,19 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         </div>
       </nav>
 
-      {/* Sidebar */}
-      <aside
-        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-gray-900 dark:bg-gray-950 text-white transition-all duration-300 z-20 ${
-          isSidebarOpen ? 'w-64' : 'w-0 overflow-hidden'
-        }`}
-      >
-        <div className="p-4">
-          <nav className="space-y-2">
-            {menuItems.map((item) => (
-              <Link
-                key={item.id}
-                to={item.path}
-                className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
-                  isActive(item.path)
-                    ? 'bg-blue-600 text-white'
-                    : 'hover:bg-gray-800 text-gray-300'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">{item.icon}</span>
-                  <span className="font-medium">{item.label}</span>
-                </div>
-                {item.badge && (
-                  <span className="px-2 py-1 text-xs font-bold bg-red-500 text-white rounded-full">
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Sidebar Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800 dark:border-gray-900 space-y-4">
-          {/* Theme Toggle in Sidebar */}
-          <div className="flex justify-center">
-            <ThemeToggle />
-          </div>
-          
-          <div className="text-center text-sm text-gray-400">
-            <p>Version 3.0.0</p>
-            <p className="text-xs mt-1">© 2025 NardAria</p>
-          </div>
-        </div>
-      </aside>
-
       {/* Main Content */}
       <main
-        className={`pt-16 transition-all duration-300 ${
-          isSidebarOpen ? 'ml-64' : 'ml-0'
+        className={`pt-16 transition-all duration-300 min-h-screen ${
+          isSidebarOpen ? 'ml-64' : 'ml-20'
         }`}
       >
         <div className="p-6">{children}</div>
       </main>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

@@ -1,266 +1,420 @@
-# 📚 NardAria v3 - Documentation Index
+# 📚 مرکز مستندات Nard Arena v3
 
-> مرکز مستندات پروژه - همه چیز در یک نگاه
+> **آخرین بروزرسانی:** 23 نوامبر 2025  
+> **وضعیت پروژه:** 🟢 در حال توسعه فعال
 
 ---
 
-## 🚀 شروع سریع (برای توسعه‌دهندگان جدید)
+## 🎯 دسترسی سریع
 
-### مستندات ضروری:
-1. **[README.md](../README.md)** - معرفی پروژه و نصب
-2. **[README-QUICK.md](../README-QUICK.md)** - راهنمای سریع
-3. **[NEXT-STEPS.md](../NEXT-STEPS.md)** - مراحل بعدی پیشنهادی
+| نیاز شما | مستند | زمان مطالعه |
+|----------|-------|-------------|
+| 🚀 **میخوام شروع کنم** | [STARTUP_GUIDE](06-guides/STARTUP_GUIDE.md) | 5 دقیقه |
+| ⚙️ **Environment Setup** | [ENV-ISSUES](05-troubleshooting/ENV-ISSUES.md) | 10 دقیقه |
+| 📱 **Telegram Setup** | [TELEGRAM-COMPLETE-GUIDE](02-high-priority/TELEGRAM-COMPLETE-GUIDE.md) | 15 دقیقه |
+| 🔧 **مشکل دارم** | [Troubleshooting](#troubleshooting) | 5 دقیقه |
+| 📊 **API Docs** | [API-DOCUMENTATION](02-high-priority/API-DOCUMENTATION.md) | 20 دقیقه |
 
-### راه‌اندازی اولیه:
-```bash
-# نصب و اجرا
-.\start-dev.bat
+---
 
-# URLs:
-# Frontend: http://localhost:5173
-# Backend:  http://localhost:3002
-# Database: http://localhost:8081 (pgweb)
+## 📂 ساختار مستندات
+
+```
+docs/
+├── 00-MANDATORY/          ⚠️ اجباری - باید خوانده شود
+│   ├── RULES.md                قوانین خط قرمز
+│   ├── CRITICAL-CONFIGS.md     تنظیمات حیاتی
+│   └── CODING-STANDARDS.md     استانداردهای کدنویسی
+│
+├── 01-critical/           🔴 بحرانی - امنیت و درس‌ها
+│   ├── SECURITY.md             نکات امنیتی
+│   └── LESSONS-LEARNED.md      اشتباهات گذشته
+│
+├── 02-high-priority/      🟠 اولویت بالا - فنی
+│   ├── TELEGRAM-COMPLETE-GUIDE.md  ✨ جدید!
+│   ├── API-DOCUMENTATION.md
+│   └── DATABASE-SCHEMA.md
+│
+├── 03-medium-priority/    🟡 متوسط - معماری
+│   ├── ARCHITECTURE.md
+│   └── FRONTEND_ARCHITECTURE.md
+│
+├── 04-low-priority/       🔵 عمومی - اطلاعات
+│   ├── PROJECT.md
+│   ├── ANALYSIS.md
+│   └── KEY_CONCEPTS.md
+│
+├── 05-troubleshooting/    🔧 رفع مشکل
+│   └── ENV-ISSUES.md          ✨ جدید!
+│
+├── 06-guides/             📘 راهنماها
+│   └── STARTUP_GUIDE.md       (انتقال یافته از root)
+│
+└── 07-reports/            📊 گزارش‌ها
+    └── WORK-REPORT-2025-11-22.md  (انتقال یافته از root)
 ```
 
 ---
 
-## 📋 ساختار مستندات
+## 🚦 مسیر یادگیری
 
-### ⚠️ درجه اهمیت: اجباری - قبل از هر کاری
-**این فایل را همیشه اول بخوانید:**
+### برای تازه‌واردها
 
-0. **[RULES.md](./00-MANDATORY/RULES.md)** ⭐⭐⭐
-   - 🚨 **الزامی - قبل از هر کاری**
-   - قوانین خط قرمز پروژه
-   - English only in UI
-   - No component duplication
-   - Never delete working code
-   - **اگر این رو نخونی، پروژه استاپ میشه!**
+**روز 1: قوانین و Setup** (1-2 ساعت)
+1. [RULES.md](00-MANDATORY/RULES.md) ⭐ **اجباری**
+2. [CRITICAL-CONFIGS.md](00-MANDATORY/CRITICAL-CONFIGS.md)
+3. [STARTUP_GUIDE.md](06-guides/STARTUP_GUIDE.md)
 
-### 🔴 درجه اهمیت: بحرانی
-این مستندات **الزامی** هستند و باید خوانده شوند:
+**روز 2: معماری** (2-3 ساعت)
+4. [ARCHITECTURE.md](03-medium-priority/ARCHITECTURE.md)
+5. [DATABASE-SCHEMA.md](02-high-priority/DATABASE-SCHEMA.md)
+6. [API-DOCUMENTATION.md](02-high-priority/API-DOCUMENTATION.md)
 
-1. **[LESSONS-LEARNED.md](./01-critical/LESSONS-LEARNED.md)**
-   - ⚠️ مشکلات بحرانی که حل شدند
-   - درس‌های مهم برای جلوگیری از تکرار خطاها
-   - مشکل Sequelize Password Loading
-   - **وقت صرف شده: 3 ساعت - هرگز تکرار نشود!**
+**روز 3: Telegram و Advanced** (1-2 ساعت)
+7. [TELEGRAM-COMPLETE-GUIDE.md](02-high-priority/TELEGRAM-COMPLETE-GUIDE.md)
+8. [CODING-STANDARDS.md](00-MANDATORY/CODING-STANDARDS.md)
 
-2. **[SECURITY.md](./01-critical/SECURITY.md)**
-   - استانداردهای امنیتی الزامی
-   - Password hashing با bcrypt
-   - JWT authentication
-   - SQL injection prevention
-   - Rate limiting
-
-### 🟡 درجه اهمیت: بالا
-مستندات مهم برای توسعه:
-
-3. **[API-DOCUMENTATION.md](./02-high-priority/API-DOCUMENTATION.md)**
-   - تمام API endpoints
-   - Request/Response examples
-   - Authentication headers
-   - Error codes
-
-4. **[DATABASE-SCHEMA.md](./02-high-priority/DATABASE-SCHEMA.md)**
-   - ساختار دیتابیس
-   - جداول و روابط
-   - Indexes و constraints
-   - Migration scripts
-
-5. **[TELEGRAM-SETUP.md](./02-high-priority/TELEGRAM-SETUP.md)**
-   - راهنمای تنظیم Telegram Bot
-   - Notification system
-   - Error alerts
-
-### 🟢 درجه اهمیت: متوسط
-مستندات مفید برای فهم بهتر:
-
-6. **[ARCHITECTURE.md](./03-medium-priority/ARCHITECTURE.md)**
-   - معماری کلی سیستم
-   - Backend structure
-   - Frontend structure
-   - Flow diagrams
-
-7. **[FRONTEND_ARCHITECTURE.md](./03-medium-priority/FRONTEND_ARCHITECTURE.md)**
-   - ساختار React components
-   - State management
-   - Routing
-   - UI/UX patterns
-
-8. **[DEVELOPMENT-GUIDE.md](./03-medium-priority/DEVELOPMENT-GUIDE.md)**
-   - راهنمای توسعه
-   - Coding standards
-   - Git workflow
-   - Testing guidelines
-
-### ⚪ درجه اهمیت: پایین
-مستندات تکمیلی:
-
-9. **[PROJECT.md](./04-low-priority/PROJECT.md)**
-   - تاریخچه پروژه
-   - معرفی کلی
-   - TODO List قدیمی
-
-10. **[KEY_CONCEPTS.md](./04-low-priority/KEY_CONCEPTS.md)**
-    - مفاهیم کلیدی سیستم
-    - توضیحات مفهومی
-
-11. **[ANALYSIS.md](./04-low-priority/ANALYSIS.md)**
-    - تحلیل‌های انجام شده
-    - بررسی‌های تکنیکال
-
-### 🎨 طراحی و برنامه‌ریزی
-مستندات مرتبط با طراحی:
-
-12. **[ADMIN-PANEL-DESIGN.md](./ADMIN-PANEL-DESIGN.md)**
-    - طراحی کامل پنل مدیریت
-    - Dashboard با نمودارها
-    - User Management
-    - Transactions & Withdrawals
-    - Online Games Monitor
-    - Implementation Plan
-   - تصمیمات طراحی
-   - Alternative approaches
-
-10. **[KEY_CONCEPTS.md](./04-low-priority/KEY_CONCEPTS.md)**
-    - مفاهیم کلیدی
-    - Terminology
-    - Best practices
-
-11. **[ANALYSIS.md](./04-low-priority/ANALYSIS.md)**
-    - تحلیل‌های اولیه
-    - Requirements analysis
-    - Feature planning
+**Bonus:**
+9. [LESSONS-LEARNED.md](01-critical/LESSONS-LEARNED.md) - یاد بگیر از اشتباهات گذشته
 
 ---
 
-## 🎯 پیشنهاد مطالعه برای نقش‌های مختلف
+## 📋 مستندات به تفکیک
 
-### برای Backend Developer:
-0. ✅ RULES.md (الزامی!)
-1. ✅ LESSONS-LEARNED.md (حتماً!)
-2. ✅ SECURITY.md
-3. ✅ API-DOCUMENTATION.md
-4. ✅ DATABASE-SCHEMA.md
-5. ⭐ TELEGRAM-SETUP.md
+### 00-MANDATORY (⚠️ اجباری)
 
-### برای Frontend Developer:
-0. ✅ RULES.md (الزامی!)
-1. ✅ API-DOCUMENTATION.md
-2. ✅ FRONTEND_ARCHITECTURE.md
-3. ⭐ DEVELOPMENT-GUIDE.md
-4. ⭐ ARCHITECTURE.md
+| فایل | موضوع | اهمیت | وضعیت |
+|------|-------|--------|--------|
+| [RULES.md](00-MANDATORY/RULES.md) | قوانین خط قرمز پروژه | 🔴🔴🔴 | ✅ باید خوانده شود |
+| [RULES-FA.md](00-MANDATORY/RULES-FA.md) | قوانین به فارسی | 🔴🔴 | ✅ نسخه فارسی |
+| [CRITICAL-CONFIGS.md](00-MANDATORY/CRITICAL-CONFIGS.md) | Environment, JWT, Database | 🔴🔴 | ✅ Setup ضروری |
+| [CODING-STANDARDS.md](00-MANDATORY/CODING-STANDARDS.md) | TypeScript, ESLint, Prettier | 🔴 | ✅ قبل از Commit |
 
-### برای DevOps:
-0. ✅ RULES.md (الزامی!)
-1. ✅ SECURITY.md
-2. ✅ DATABASE-SCHEMA.md
-3. ✅ TELEGRAM-SETUP.md
-4. ⭐ ARCHITECTURE.md
-
-### برای Project Manager:
-0. ✅ RULES.md (الزامی!)
-1. ✅ README.md
-2. ✅ NEXT-STEPS.md
-3. ⭐ PROJECT.md
-4. ⭐ ANALYSIS.md
+**نکات کلیدی:**
+- ⛔ Never delete working code
+- 🇬🇧 English only in UI
+- 🚫 No component duplication
+- ✅ همیشه test کنید
 
 ---
 
-## 🔧 Scripts و ابزارهای مفید
+### 01-critical (🔴 بحرانی)
 
-### Development Scripts:
+| فایل | موضوع | محتوا | زمان صرف شده |
+|------|-------|-------|-------------|
+| [SECURITY.md](01-critical/SECURITY.md) | امنیت | bcrypt, JWT, SQL Injection | - |
+| [LESSONS-LEARNED.md](01-critical/LESSONS-LEARNED.md) | درس‌های آموخته شده | Sequelize Bug, Model Issues | 3+ ساعت |
+
+**مهم‌ترین درس:**
+```typescript
+// ❌ اشتباه - باعث bug میشه
+public id!: number;
+
+// ✅ درست
+declare id: number;
+```
+
+---
+
+### 02-high-priority (🟠 فنی اصلی)
+
+| فایل | موضوع | محتوا | وضعیت |
+|------|-------|-------|--------|
+| [TELEGRAM-COMPLETE-GUIDE.md](02-high-priority/TELEGRAM-COMPLETE-GUIDE.md) | **راهنمای جامع Telegram** ✨ | Setup, Test, Debug, Best Practices | ✅ جدید |
+| [API-DOCUMENTATION.md](02-high-priority/API-DOCUMENTATION.md) | REST API | Auth, Users, Routes | ✅ کامل |
+| [DATABASE-SCHEMA.md](02-high-priority/DATABASE-SCHEMA.md) | PostgreSQL Schema | Models, Relations | ✅ کامل |
+
+**درس آموخته شده امروز:**
+```json
+// package.json - tsx فایل .env رو load نمیکنه!
+"dev": "tsx watch --env-file=.env src/server.ts"  // ✅ با --env-file
+```
+
+---
+
+### 03-medium-priority (🟡 معماری)
+
+| فایل | موضوع |
+|------|-------|
+| [ARCHITECTURE.md](03-medium-priority/ARCHITECTURE.md) | معماری کلی پروژه |
+| [FRONTEND_ARCHITECTURE.md](03-medium-priority/FRONTEND_ARCHITECTURE.md) | ساختار Frontend |
+
+---
+
+### 04-low-priority (🔵 عمومی)
+
+| فایل | توضیح |
+|------|--------|
+| [PROJECT.md](04-low-priority/PROJECT.md) | اطلاعات کلی |
+| [PROJECT-ROADMAP.md](04-low-priority/PROJECT-ROADMAP.md) | نقشه راه پروژه |
+| [ANALYSIS.md](04-low-priority/ANALYSIS.md) | تحلیل‌ها |
+| [KEY_CONCEPTS.md](04-low-priority/KEY_CONCEPTS.md) | مفاهیم کلیدی |
+
+---
+
+### 05-troubleshooting (🔧 رفع مشکل)
+
+| مشکل | فایل | راه‌حل |
+|------|------|--------|
+| **tsx فایل .env رو load نمیکنه** ✨ | [ENV-ISSUES.md](05-troubleshooting/ENV-ISSUES.md) | `--env-file=.env` |
+| Port in use | [STARTUP_GUIDE](06-guides/STARTUP_GUIDE.md) | `kill-all-processes.bat` |
+| Telegram پیام نمیفرسته | [TELEGRAM-COMPLETE-GUIDE](02-high-priority/TELEGRAM-COMPLETE-GUIDE.md) | Debug چک‌لیست |
+
+**مشکلات حل شده امروز:**
+1. ✅ tsx بدون `--env-file` environment variables رو load نمیکرد
+2. ✅ `dotenv.config()` باید قبل از importها باشه
+3. ✅ Backend باید kill و restart بشه بعد از تغییر .env
+
+---
+
+### 06-guides (📘 راهنماها)
+
+| راهنما | محتوا | زمان |
+|--------|-------|------|
+| [STARTUP_GUIDE.md](06-guides/STARTUP_GUIDE.md) | Scripts, Troubleshooting, Workflow | 5 دقیقه |
+| [SERVICE-STATUS.md](06-guides/SERVICE-STATUS.md) | وضعیت سرویس‌ها، Health Check | - |
+| [BYBIT-PAYMENT-GUIDE.md](06-guides/BYBIT-PAYMENT-GUIDE.md) | راهنمای پرداخت Bybit | - |
+
+**Scripts:**
 ```bash
-# Start/Stop
-.\start-dev.bat      # اجرای backend + frontend
-.\stop-dev.bat       # بستن همه سرویس‌ها
-.\check-status.bat   # چک کردن وضعیت
+start-dev.bat          # Start all
+clean-start.bat        # Kill + Start
+kill-all-processes.bat # Kill only
+```
 
-# Database Management
+---
+
+### 07-reports (📊 گزارش‌ها)
+
+| گزارش | تاریخ | محتوا |
+|-------|-------|-------|
+| [WORK-REPORT-2025-11-22.md](07-reports/WORK-REPORT-2025-11-22.md) | 22 نوامبر | Admin Panel Phase 1, Telegram Fix |
+
+---
+
+## 🎯 سناریوهای عملی
+
+### سناریو 1: شروع پروژه از صفر
+
+```bash
+# 1. Clone repository
+git clone <repo>
+
+# 2. مطالعه مستندات (30 دقیقه)
+docs/00-MANDATORY/RULES.md
+docs/00-MANDATORY/CRITICAL-CONFIGS.md
+docs/06-guides/STARTUP_GUIDE.md
+
+# 3. Setup Backend
 cd backgammon-auth-backend
-node scripts/view-users.js              # مشاهده users
-node scripts/hash-all-passwords.js      # hash کردن passwords
-node scripts/test-password.js           # تست password
-node scripts/migrate-password-reset.js  # migration
-```
+npm install
+# ساخت .env (راهنما: CRITICAL-CONFIGS.md)
+npm run dev
 
-### Database Tools:
-- **pgweb**: http://localhost:8081
-- **PostgreSQL**: localhost:5432
+# 4. Setup Frontend
+cd ../backgammon-frontend
+npm install
+npm run dev
+
+# 5. Test
+http://localhost:5173
+```
 
 ---
 
-## 📞 Credentials (Development)
+### سناریو 2: Setup Telegram
 
+```bash
+# 1. مطالعه راهنما (15 دقیقه)
+docs/02-high-priority/TELEGRAM-COMPLETE-GUIDE.md
+
+# 2. ساخت Bot در تلگرام
+# - به @BotFather پیام دهید
+# - Token دریافت کنید
+
+# 3. تنظیم .env
+TELEGRAM_LOGGING_ENABLED=true
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_CHAT_ID=...
+
+# 4. تنظیم package.json
+"dev": "tsx watch --env-file=.env src/server.ts"
+
+# 5. Restart Backend
+kill-all-processes.bat
+npm run dev
+
+# 6. تست
+curl -X POST http://localhost:3002/api/logs/test-telegram
 ```
-Admin Account:
-Email:    admin@nardarena.com
+
+---
+
+### سناریو 3: مشکل tsx و .env
+
+**علائم:**
+```
+TELEGRAM_LOGGING_ENABLED: undefined ❌
+```
+
+**راه‌حل:**
+1. [ENV-ISSUES.md](05-troubleshooting/ENV-ISSUES.md) را بخوانید
+2. `package.json` را چک کنید:
+   ```json
+   "dev": "tsx watch --env-file=.env src/server.ts"
+   ```
+3. Backend را restart کنید
+
+---
+
+## 🔗 لینک‌های مهم
+
+### Servers
+- **Frontend:** http://localhost:5173
+- **Backend:** http://localhost:3002
+- **API Base:** http://localhost:3002/api
+- **Health Check:** http://localhost:3002/health
+
+### Test Endpoints
+- **Test Telegram:** `POST /api/logs/test-telegram`
+- **Test Panel:** http://localhost:5173/test
+
+### Admin Login
+```
+Email: admin@nardarena.com
 Password: admin123
-
-Database:
-Host:     localhost
-Port:     5432
-Database: nardarena
-User:     postgres
-Password: 123456
 ```
 
 ---
 
-## 🚨 BEFORE EVERY TASK - CHECKLIST
+## 📊 وضعیت پروژه
 
-```markdown
-[ ] Did I read RULES.md? (MANDATORY!)
-[ ] Did I read LESSONS-LEARNED.md?
-[ ] Did I search for existing code?
-[ ] Is there any duplicate component?
-[ ] Is all UI text in English?
-[ ] Am I following project structure?
-[ ] Did I verify no working code is deleted?
-[ ] Will I test after implementation?
-[ ] Did I check SECURITY.md for security rules?
+### ✅ فیچرهای کامل شده
+- [x] Authentication (Login, Register, JWT, Refresh Token)
+- [x] User Management (CRUD با Sequelize)
+- [x] PostgreSQL Integration
+- [x] Telegram Notifications (با troubleshooting کامل)
+- [x] Error Logging (Frontend + Backend)
+- [x] Failed Login Tracking (5 attempts → Telegram)
+- [x] Admin Panel Layout (Phase 1)
+- [x] Environment Setup با tsx (با --env-file)
+
+### 🚧 در حال توسعه
+- [ ] Admin Panel - Users Page (Phase 3)
+- [ ] Admin Panel - Transactions (Phase 4)
+- [ ] Admin Panel - Charts با Recharts (Phase 2)
+
+### 📅 Roadmap
+- [ ] Payment Gateway Integration
+- [ ] Game Engine
+- [ ] Real-time با WebSocket
+- [ ] Mobile App
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+```
+Node.js 20+ + Express + TypeScript
+PostgreSQL 18 + Sequelize ORM
+JWT Auth + bcrypt
+Telegram Bot API
+```
+
+### Frontend
+```
+React 18 + TypeScript + Vite
+Material-UI (Minimals Theme)
+React Router + Context API
+Axios
+```
+
+### Tools
+```
+tsx watch (hot reload)
+pgAdmin4 / pgweb
+Git
 ```
 
 ---
 
-## ⚠️ نکات مهم
+## 📞 پشتیبانی
 
-### ⚠️ قبل از شروع کار:
-0. **حتماً حتماً** `RULES.md` رو بخون (الزامی!)
-1. **حتماً** `LESSONS-LEARNED.md` رو بخون
-2. **هرگز** .env رو commit نکن
-3. **همیشه** از raw query برای authentication استفاده کن
-4. **قبل از production** همه credentials رو عوض کن
-5. **هیچ وقت** از فارسی در UI استفاده نکن
-6. **هیچ وقت** کامپوننت duplicate نساز
-7. **هیچ وقت** کد کاری که کار میکنه رو حذف نکن
+### مشکل فنی؟
+1. [05-troubleshooting/](05-troubleshooting/) را چک کنید
+2. [LESSONS-LEARNED.md](01-critical/LESSONS-LEARNED.md) - شاید قبلاً حل شده
+3. مستندات مرتبط را جستجو کنید
 
-### ✅ Best Practices:
-- Logging دقیق برای debug
-- Unit tests برای authentication
-- Error handling مناسب
-- Security standards رعایت شود
+### سؤال دارید؟
+- **Telegram:** مستندات جامع موجود است
+- **Environment:** ENV-ISSUES.md
+- **API:** API-DOCUMENTATION.md
 
 ---
 
-## 📝 به‌روزرسانی مستندات
+## 🎓 منابع خارجی
 
-وقتی چیز جدیدی اضافه میکنی:
-1. مستند مربوطه رو آپدیت کن
-2. این INDEX.md رو آپدیت کن
-3. در CHANGELOG.md ثبت کن
+### Backend
+- [Express.js](https://expressjs.com/)
+- [Sequelize](https://sequelize.org/)
+- [Telegram Bot API](https://core.telegram.org/bots/api)
+
+### Frontend
+- [React Docs](https://react.dev/)
+- [Material-UI](https://mui.com/)
+- [Vite](https://vitejs.dev/)
+
+### Frontend Docs
+- [backgammon-frontend/docs/INDEX.md](../backgammon-frontend/docs/INDEX.md)
+- [UI_ROADMAP.md](../backgammon-frontend/docs/UI_ROADMAP.md)
+- [CHANGES.md](../backgammon-frontend/docs/CHANGES.md)
 
 ---
 
-## 🤝 مشارکت
+## 🔄 Changelog
 
-قبل از ارسال Pull Request:
-1. مستندات رو بخون
-2. Tests رو بنویس
-3. Code style رو رعایت کن
-4. Security guidelines رو چک کن
+### 2025-11-23 ✨ **امروز**
+- ✅ **ENV-ISSUES.md** - مستند جامع مشکلات tsx و .env
+- ✅ **TELEGRAM-COMPLETE-GUIDE.md** - ادغام تمام Telegram docs
+- ✅ **Reorganization** - ساختاردهی کامل docs
+- ✅ **Folders** - ایجاد 05-troubleshooting, 06-guides, 07-reports
+- ✅ **Move** - انتقال فایل‌های پراکنده از root به docs
+
+### 2025-11-22
+- ✅ Admin Panel Phase 1
+- ✅ Telegram Bug Fix
+- ✅ WORK-REPORT-2025-11-22.md
 
 ---
 
-**آخرین به‌روزرسانی:** 22 نوامبر 2025
+## 📝 نکات مهم
+
+### ✅ همیشه انجام دهید
+- قبل از کار RULES.md را بخوانید
+- قبل از commit تست کنید
+- مستندات را update کنید
+- از scripts موجود استفاده کنید
+
+### ❌ هرگز انجام ندهید
+- `.env` را commit نکنید
+- کد working را delete نکنید
+- بدون test deploy نکنید
+- قوانین را نادیده نگیرید
+
+---
+
+## 🎉 نتیجه‌گیری
+
+این مستندات برای **شما** نوشته شده‌اند. 
+
+- 📖 هر سؤالی دارید، اینجا جستجو کنید
+- 🔧 هر مشکلی داشتید، troubleshooting را چک کنید
+- 🚀 برای شروع، STARTUP_GUIDE را بخوانید
+- 📱 برای Telegram، TELEGRAM-COMPLETE-GUIDE کامل است
+
+**به Nard Arena خوش آمدید!** 🎮
+
+---
+
+**✨ Documentation v2.0 - Reorganized & Complete**

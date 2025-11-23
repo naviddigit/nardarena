@@ -24,27 +24,17 @@ export const TestPanel = () => {
     setLastTest('Telegram Test');
     
     try {
-      const apiUrl = import.meta.env.VITE_ERROR_API_URL;
-      const apiKey = import.meta.env.VITE_ERROR_API_KEY;
-
-      if (!apiUrl || !apiKey) {
-        addResult('error', 'Environment variables not configured');
-        setIsTestingWhatsApp(false);
-        return;
-      }
-
-      const response = await fetch(`${apiUrl}/api/test/telegram`, {
+      const response = await fetch('http://localhost:3002/api/logs/test-telegram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': apiKey,
         },
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
-        addResult('info', '✅ Telegram test sent! Check your channel/group.');
+        addResult('info', '✅ Telegram test sent! Check your Telegram.');
       } else {
         addResult('error', `❌ Failed: ${data.error || 'Unknown error'}`);
       }

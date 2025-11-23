@@ -8,6 +8,7 @@ import {
   refreshAccessToken,
 } from '../services/authService';
 import { requestPasswordReset, resetPassword } from '../services/passwordResetService';
+import { loginAttemptsTracker } from '../services/loginAttemptsTracker';
 
 const router = express.Router();
 
@@ -41,8 +42,12 @@ router.post('/register', validate('register'), async (req: Request, res: Respons
 router.post('/login', validate('login'), async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    const ip = req.ip || req.socket.remoteAddress;
 
     const result = await loginUser(email, password);
+
+    // پاک کردن تلاش‌های ناموفق در صورت لاگین موفق
+    loginAttemptsTracker.clearAttempts(email);
 
     res.status(200).json({
       success: true,
@@ -50,6 +55,14 @@ router.post('/login', validate('login'), async (req: Request, res: Response) => 
       data: result,
     });
   } catch (error: any) {
+    const { email } = req.body;
+    const ip = req.ip || req.socket.remoteAddress;
+
+    // ثبت تلاش ناموفق
+    if (email && error.message.includes('Invalid')) {
+      await loginAttemptsTracker.recordFailedAttempt(email, ip);
+    }
+
     res.status(401).json({
       success: false,
       error: error.message,

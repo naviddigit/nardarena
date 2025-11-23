@@ -1,14 +1,17 @@
+// Load environment variables FIRST - before any other imports
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Now import everything else
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import { connectDatabase, syncDatabase } from './utils/database';
 import { initUserModel } from './models/User';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
-
-// Load environment variables
-dotenv.config();
+import logsRoutes from './routes/logs';
+import { errorLogger } from './middleware/errorLogger';
 
 // Initialize Express
 const app: Application = express();
@@ -52,6 +55,7 @@ app.use('/api/', limiter);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/logs', logsRoutes);
 
 // Health Check
 app.get('/health', (req: Request, res: Response) => {
@@ -70,14 +74,8 @@ app.use((req: Request, res: Response) => {
   });
 });
 
-// Error Handler
-app.use((err: any, req: Request, res: Response, next: any) => {
-  console.error('Error:', err);
-  res.status(err.status || 500).json({
-    success: false,
-    error: err.message || 'Internal server error',
-  });
-});
+// Global Error Handler - باید در آخر باشه
+app.use(errorLogger);
 
 // Start Server
 const startServer = async () => {

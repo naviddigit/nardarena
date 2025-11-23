@@ -76,16 +76,12 @@ export const updateUser = async (
   userId: string,
   userData: UpdateUserDto
 ): Promise<User> => {
-  const response = await apiClient.put<ApiResponse<User>>(
+  const response = await apiClient.put<ApiResponse<{ user: User }>>(
     `/users/${userId}`,
     userData
   );
   
-  if (!response.data.data) {
-    throw new Error('خطا در بروزرسانی کاربر');
-  }
-  
-  return response.data.data;
+  return response.data.data.user;
 };
 
 /**

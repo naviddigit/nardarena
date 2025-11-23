@@ -18,11 +18,14 @@ const demos = [
   { id: 'test', name: 'Test Panel', icon: '🔬' },
   { id: 'button', name: 'Button', icon: '🔘' },
   { id: 'input', name: 'Input', icon: '📝' },
+  { id: 'toggle', name: 'Toggle', icon: '🎚️' },
   { id: 'avatar', name: 'Avatar', icon: '👤' },
   { id: 'badge', name: 'Badge', icon: '🏷️' },
   { id: 'spinner', name: 'Spinner', icon: '⌛' },
   { id: 'divider', name: 'Divider', icon: '➖' },
   { id: 'card', name: 'Card', icon: '🃏' },
+  { id: 'user-form', name: 'User Form', icon: '📋' },
+  { id: 'snackbar', name: 'Snackbar', icon: '🔔' },
 ];
 
 export const DemoNav = ({ currentDemo, onNavigate }: DemoNavProps) => {

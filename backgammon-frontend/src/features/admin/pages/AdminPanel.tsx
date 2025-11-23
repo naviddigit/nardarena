@@ -6,11 +6,14 @@
 import { useState } from 'react';
 import ButtonDemo from '@features/demo/pages/ButtonDemo';
 import InputDemo from '@features/demo/pages/InputDemo';
+import ToggleDemo from '@features/demo/pages/ToggleDemo';
 import AvatarDemo from '@features/demo/pages/AvatarDemo';
 import BadgeDemo from '@features/demo/pages/BadgeDemo';
 import SpinnerDemo from '@features/demo/pages/SpinnerDemo';
 import DividerDemo from '@features/demo/pages/DividerDemo';
 import CardDemo from '@features/demo/pages/CardDemo';
+import UserFormDemo from '@features/demo/pages/UserFormDemo';
+import SnackbarDemo from '@features/demo/pages/SnackbarDemo';
 import TestPanel from '@features/demo/pages/TestPanel';
 import APITestingPanel from './APITestingPanel';
 import { DemoNav } from '@features/demo/components/DemoNav';
@@ -30,6 +33,8 @@ function AdminPanel() {
         return <ButtonDemo />;
       case 'input':
         return <InputDemo />;
+      case 'toggle':
+        return <ToggleDemo />;
       case 'avatar':
         return <AvatarDemo />;
       case 'badge':
@@ -40,6 +45,10 @@ function AdminPanel() {
         return <DividerDemo />;
       case 'card':
         return <CardDemo />;
+      case 'user-form':
+        return <UserFormDemo />;
+      case 'snackbar':
+        return <SnackbarDemo />;
       case 'test':
         return <TestPanel />;
       default:

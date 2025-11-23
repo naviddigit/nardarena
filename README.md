@@ -44,27 +44,40 @@ Password: admin123
 ## 📚 مستندات
 
 ### 🔍 شروع از اینجا:
-**[📖 docs/INDEX.md](docs/INDEX.md)** - مرکز هماهنگی همه مستندات
+**[📖 docs/INDEX.md](docs/INDEX.md)** - مرکز هماهنگی همه مستندات ⭐
+
+### دسترسی سریع:
+
+| نیاز شما | مستند | زمان |
+|----------|-------|------|
+| 🚀 **شروع پروژه** | [STARTUP_GUIDE](docs/06-guides/STARTUP_GUIDE.md) | 5 دقیقه |
+| 📱 **Telegram Setup** | [TELEGRAM-COMPLETE-GUIDE](docs/02-high-priority/TELEGRAM-COMPLETE-GUIDE.md) | 15 دقیقه |
+| 🔧 **tsx مشکل .env** | [ENV-ISSUES](docs/05-troubleshooting/ENV-ISSUES.md) | 10 دقیقه |
+| 📊 **API Docs** | [API-DOCUMENTATION](docs/02-high-priority/API-DOCUMENTATION.md) | 20 دقیقه |
 
 ### مستندات اصلی (بر اساس اولویت):
 
-#### 🔴 Critical (حتماً بخوانید!)
-- [LESSONS-LEARNED.md](docs/01-critical/LESSONS-LEARNED.md) - درس‌های حیاتی (Sequelize password bug)
-- [SECURITY.md](docs/01-critical/SECURITY.md) - استانداردهای امنیتی الزامی
+#### 00-MANDATORY (⚠️ اجباری)
+- [RULES.md](docs/00-MANDATORY/RULES.md) - قوانین خط قرمز ⭐⭐⭐
+- [CRITICAL-CONFIGS.md](docs/00-MANDATORY/CRITICAL-CONFIGS.md) - تنظیمات حیاتی
+- [CODING-STANDARDS.md](docs/00-MANDATORY/CODING-STANDARDS.md) - استانداردهای کدنویسی
 
-#### 🟠 High Priority (مهم برای توسعه)
+#### 01-critical (🔴 بحرانی)
+- [SECURITY.md](docs/01-critical/SECURITY.md) - امنیت
+- [LESSONS-LEARNED.md](docs/01-critical/LESSONS-LEARNED.md) - درس‌های آموخته شده
+
+#### 02-high-priority (🟠 فنی اصلی)
+- [TELEGRAM-COMPLETE-GUIDE.md](docs/02-high-priority/TELEGRAM-COMPLETE-GUIDE.md) - راهنمای جامع Telegram ✨
 - [API-DOCUMENTATION.md](docs/02-high-priority/API-DOCUMENTATION.md) - مستندات کامل API
 - [DATABASE-SCHEMA.md](docs/02-high-priority/DATABASE-SCHEMA.md) - ساختار دیتابیس
-- [TELEGRAM-SETUP.md](docs/02-high-priority/TELEGRAM-SETUP.md) - راه‌اندازی Telegram Bot
 
-#### 🟡 Medium Priority (مفید برای درک کلی)
-- [ARCHITECTURE.md](docs/03-medium-priority/ARCHITECTURE.md) - معماری سیستم
-- [FRONTEND_ARCHITECTURE.md](docs/03-medium-priority/FRONTEND_ARCHITECTURE.md) - ساختار فرانت‌اند
+#### 05-troubleshooting (🔧 رفع مشکل)
+- [ENV-ISSUES.md](docs/05-troubleshooting/ENV-ISSUES.md) - مشکلات tsx و .env ✨
 
-#### 🟢 Low Priority (اطلاعات تکمیلی)
-- [PROJECT.md](docs/04-low-priority/PROJECT.md) - تاریخچه پروژه
-- [KEY_CONCEPTS.md](docs/04-low-priority/KEY_CONCEPTS.md) - مفاهیم کلیدی
-- [ANALYSIS.md](docs/04-low-priority/ANALYSIS.md) - تحلیل‌ها
+#### 06-guides (📘 راهنماها)
+- [STARTUP_GUIDE.md](docs/06-guides/STARTUP_GUIDE.md) - راه‌اندازی پروژه
+
+**📂 ساختار کامل:** [docs/INDEX.md](docs/INDEX.md)
 
 ---
 
@@ -201,6 +214,10 @@ MIT
 
 ---
 
-**آخرین به‌روزرسانی:** 22 نوامبر 2025  
+**آخرین به‌روزرسانی:** 23 نوامبر 2025  
 **Version:** 3.0.0  
 **Status:** Active Development 🚧
+
+**📝 Changelog:**
+- ✨ 2025-11-23: Reorganized documentation, ENV-ISSUES.md, TELEGRAM-COMPLETE-GUIDE.md
+- ✅ 2025-11-22: Admin Panel Phase 1, Telegram Bug Fix

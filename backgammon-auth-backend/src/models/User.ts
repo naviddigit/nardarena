@@ -38,18 +38,18 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'avatar
  * User Model Class
  */
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public password!: string;
-  public role!: 'admin' | 'player';
-  public avatar!: string | null;
-  public isActive!: boolean;
-  public isEmailVerified!: boolean;
-  public stats!: UserStats;
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare role: 'admin' | 'player';
+  declare avatar: string | null;
+  declare isActive: boolean;
+  declare isEmailVerified: boolean;
+  declare stats: UserStats;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 
   /**
    * Method: مقایسه password

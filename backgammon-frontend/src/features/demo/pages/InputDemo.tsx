@@ -1,20 +1,13 @@
+/**
+ * Input Demo Page
+ * صفحه دمو کامپوننت Input
+ */
+
 import { useState } from 'react';
 import { TextInput, PasswordInput } from '@shared/components/atoms/Input';
 import { EmailIcon } from '@shared/components/atoms/Icon';
-import { ThemeToggle } from '@shared/components/organisms/ThemeToggle';
 
-/**
- * Input Demo Page
- * 
- * نمایش تمام حالت‌های Input:
- * - TextInput با انواع type
- * - PasswordInput با show/hide
- * - با validation
- * - با icon
- * - Error states
- * - Disabled states
- */
-export default function InputDemo() {
+const InputDemo = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -49,26 +42,19 @@ export default function InputDemo() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-bg p-8 transition-colors relative">
-      <ThemeToggle />
-      <div className="max-w-5xl mx-auto space-y-12">
-        
-        {/* Header */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Input Components Demo
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            All possible Input states following SOLID principles
-          </p>
-        </div>
+    <div className="space-y-8 p-8 bg-white dark:bg-gray-900 rounded-2xl">
+      <div>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Input Components</h2>
+        <p className="text-gray-600 dark:text-gray-400">
+          Reusable text and password input components with validation
+        </p>
+      </div>
 
-        {/* Basic Text Input */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Basic Text Input
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Basic Text Input */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Basic Text Input</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput
               placeholder="Enter your name"
               label="Full Name"
@@ -82,14 +68,14 @@ export default function InputDemo() {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Email Input with Validation */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Email with Validation
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Email with Validation */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Email with Validation</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput
               type="email"
               placeholder="your@email.com"
@@ -110,17 +96,17 @@ export default function InputDemo() {
               leftIcon={<EmailIcon />}
             />
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             💡 Fill the left input - validation happens automatically
           </p>
-        </section>
+        </div>
+      </div>
 
-        {/* Password Input */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Password Input
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Password Input */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Password Input</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <PasswordInput
               placeholder="Enter password"
               label="Password"
@@ -138,17 +124,17 @@ export default function InputDemo() {
               helperText="Must match the password above"
             />
           </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             👁️ Click the eye icon to show/hide password
           </p>
-        </section>
+        </div>
+      </div>
 
-        {/* Input Types */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Different Input Types
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Different Input Types */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Different Input Types</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput
               type="tel"
               placeholder="+98 912 345 6789"
@@ -187,14 +173,14 @@ export default function InputDemo() {
               }
             />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Error States */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Error States
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Error States */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Error States</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput
               placeholder="username"
               label="Username"
@@ -208,14 +194,14 @@ export default function InputDemo() {
               value="123"
             />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Disabled States */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Disabled States
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Disabled States */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Disabled States</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextInput
               placeholder="Cannot edit"
               label="Disabled Field"
@@ -229,30 +215,30 @@ export default function InputDemo() {
               value="password123"
             />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Full Width */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Full Width
-          </h2>
+      {/* Full Width */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Full Width</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
           <TextInput
             fullWidth
             placeholder="This input takes full width"
             label="Full Width Input"
             helperText="Useful for single-column layouts"
           />
-        </section>
+        </div>
+      </div>
 
-        {/* Real World Example: Login Form */}
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Real World Example: Login Form
-          </h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-8 rounded-2xl max-w-md mx-auto space-y-6">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-6">
-              Login to Your Account
-            </h3>
+      {/* Usage Example */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Usage Example</h3>
+        <div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl space-y-4">
+          <h4 className="text-lg font-medium text-gray-900 dark:text-white text-center">
+            Login Form
+          </h4>
+          <div className="max-w-md mx-auto space-y-4">
             <TextInput
               type="email"
               placeholder="your@email.com"
@@ -266,15 +252,97 @@ export default function InputDemo() {
               fullWidth
               helperText="At least 8 characters"
             />
-            <div className="pt-4">
-              <button className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all">
-                Login
-              </button>
-            </div>
           </div>
-        </section>
+        </div>
+      </div>
 
+      {/* Code Example */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Code Example</h3>
+        <pre className="p-4 bg-gray-900 text-green-400 rounded-xl overflow-x-auto text-sm">
+{`import { TextInput, PasswordInput } from '@shared/components/atoms/Input';
+
+const [email, setEmail] = useState('');
+
+<TextInput
+  type="email"
+  placeholder="your@email.com"
+  label="Email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  leftIcon={<EmailIcon />}
+/>
+
+<PasswordInput
+  placeholder="Password"
+  label="Password"
+  helperText="At least 8 characters"
+/>`}
+        </pre>
+      </div>
+
+      {/* Props Documentation */}
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Props</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-100 dark:bg-gray-800">
+              <tr>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Prop</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Type</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Default</th>
+                <th className="px-4 py-2 text-left text-gray-900 dark:text-white">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">type</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">string</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">'text'</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Input type (text, email, tel, etc.)</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">label</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">string</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Label text</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">error</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">string</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Error message to display</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">helperText</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">string</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Helper text below input</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">leftIcon</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">ReactNode</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">-</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Icon on the left side</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">disabled</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">boolean</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">false</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Disable the input</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 font-mono text-purple-600 dark:text-purple-400">fullWidth</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">boolean</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">false</td>
+                <td className="px-4 py-2 text-gray-600 dark:text-gray-400">Take full width of container</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default InputDemo;

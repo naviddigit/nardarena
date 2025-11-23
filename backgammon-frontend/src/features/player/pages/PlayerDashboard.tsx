@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { FiCpu, FiUsers, FiTrendingUp, FiUser, FiDollarSign, FiCreditCard, FiClock, FiLogOut } from 'react-icons/fi';
 import { ThemeToggle } from '@shared/components/organisms/ThemeToggle';
-import { useTheme } from '@/app/providers';
 import { useAuth } from '@features/auth/hooks/useAuth';
 
 interface GameOptionProps {
@@ -74,17 +73,11 @@ function PlayerDashboard() {
     navigate('/tournaments');
   };
 
-  const bgColors = {
-    dark: 'bg-dark-bg',
-    light: 'bg-light-bg',
-    gaming: 'bg-gaming-bg'
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700">
+      <header className="fixed top-0 left-0 right-0 z-30 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-7xl mx-auto">
           {/* Welcome Text */}
           <div className="min-w-0 flex-1">
@@ -141,7 +134,7 @@ function PlayerDashboard() {
                         setShowProfileMenu(false);
                         navigate('/profile');
                       }}
-                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <FiUser className="text-purple-500" size={18} />
                       <span className="text-gray-900 dark:text-white font-medium">Profile</span>
@@ -152,7 +145,7 @@ function PlayerDashboard() {
                         setShowProfileMenu(false);
                         navigate('/deposit');
                       }}
-                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <FiDollarSign className="text-success-500" size={18} />
                       <span className="text-gray-900 dark:text-white font-medium">Deposit</span>
@@ -163,7 +156,7 @@ function PlayerDashboard() {
                         setShowProfileMenu(false);
                         navigate('/withdraw');
                       }}
-                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <FiCreditCard className="text-blue-500" size={18} />
                       <span className="text-gray-900 dark:text-white font-medium">Withdraw</span>
@@ -174,7 +167,7 @@ function PlayerDashboard() {
                         setShowProfileMenu(false);
                         navigate('/history');
                       }}
-                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <FiClock className="text-orange-500" size={18} />
                       <span className="text-gray-900 dark:text-white font-medium">Game History</span>
@@ -271,7 +264,7 @@ function PlayerDashboard() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-12 p-6 rounded-2xl backdrop-blur-xl bg-white/40 dark:bg-white/5 border border-gray-300/50 dark:border-white/10"
+          className="mt-12 p-6 rounded-2xl backdrop-blur-xl bg-white/60 dark:bg-gray-800/30 border border-gray-200 dark:border-gray-700"
         >
           <div className="grid grid-cols-3 gap-6 text-center">
             <div>

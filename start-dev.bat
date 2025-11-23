@@ -40,29 +40,22 @@ echo.
 echo [3/3] Starting Services...
 echo.
 
-REM Check if backend is already running
-netstat -ano | findstr ":3002" >nul 2>&1
-if errorlevel 1 (
-    echo Starting Backend on Port 3002...
-    cd /d "%~dp0backgammon-auth-backend"
-    start "Backend - Port 3002" cmd /k "npm run dev"
-    echo Backend window opened!
-    timeout /t 5 /nobreak >nul
-) else (
-    echo [OK] Backend already running on Port 3002
-)
+REM Kill any existing node processes to avoid port conflicts
+echo Cleaning up old processes...
+taskkill /F /IM node.exe >nul 2>&1
+timeout /t 2 /nobreak >nul
+
+echo Starting Backend on Port 3002...
+cd /d "%~dp0backgammon-auth-backend"
+start "Backend - Port 3002" cmd /k "npm run dev"
+echo Backend window opened!
+timeout /t 5 /nobreak >nul
 echo.
 
-REM Check if frontend is already running
-netstat -ano | findstr ":5173" >nul 2>&1
-if errorlevel 1 (
-    echo Starting Frontend on Port 5173...
-    cd /d "%~dp0backgammon-frontend"
-    start "Frontend - Port 5173" cmd /k "npm run dev"
-    echo Frontend window opened!
-) else (
-    echo [OK] Frontend already running on Port 5173
-)
+echo Starting Frontend on Port 5173...
+cd /d "%~dp0backgammon-frontend"
+start "Frontend - Port 5173" cmd /k "npm run dev"
+echo Frontend window opened!
 
 echo.
 echo ========================================

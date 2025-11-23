@@ -9,7 +9,6 @@ import { Button } from '@shared/components/atoms/Button';
 import { TextInput } from '@shared/components/atoms/Input';
 import { PageTransition } from '@shared/components/animations/PageTransition';
 import { useTheme } from '@/app/providers';
-import { useAuth } from '../hooks/useAuth';
 import { Toast } from '../../../shared/components/molecules/Toast';
 
 const AVATAR_OPTIONS = [
@@ -41,7 +40,6 @@ const AuthBackground: React.FC = () => {
 
 function ProfileSetupPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { theme } = useTheme();
   
   const [username, setUsername] = useState('');
